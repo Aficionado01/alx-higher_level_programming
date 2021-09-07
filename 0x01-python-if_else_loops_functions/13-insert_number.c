@@ -1,72 +1,49 @@
 #include "lists.h"
-#include <stdio.h>
-
 /**
- * insert_node - Inserts a number into a sorted singly linked list
- * @head: Pointer the list
- * @number: Number insert
- * Return: the head of new list
+ * insert_node - inserts a node in a linked list
+ * @head: double pointer to the head of the list
+ * @number: value to be added to node
+ * Return: the address of the new node, or NULL if it failed
  */
+
 listint_t *insert_node(listint_t **head, int number)
 {
-  listint_t *insert;
-  listint_t *node;
+  listint_t *current, *temp, *new;
 
-  insert = *head;
+  current = *head, temp = *head, new = NULL;
 
-  node = malloc(sizeof(listint_t));
-  if (!node)
+  new = malloc(sizeof(listint_t));
+  if (new == NULL)
     return (NULL);
-
-  node->n = number;
-  node->next = NULL;
-
   if (*head == NULL)
     {
-      *head = node;
-      return (node);
+      new->n = number;
+      new->next = NULL;
+      *head = new;
+      return (new);
     }
-
-  if (insert->next == NULL)
+  if (temp == NULL)
+    return (NULL);
+  if (temp->n >= number)
     {
-      if (insert->n < number)
+      new->n = number;
+      new->next = temp;
+      *head = new;
+      return (new);
+    }
+  while (current->next)
+    {
+      current = current->next;
+      if (current->n >= number)
 	{
-	  insert->next = node;
-	  return (node);
+	  new->n = number;
+	  new->next = current;
+	  temp->next = new;
+	  return (new);
 	}
       else
-	{
-	  node->next = insert;
-	  *head = node;
-	  return (node);
-	}
+	temp = temp->next;
     }
-
-  while (insert)
-    {
-      if (insert->next)
-	{
-	  if (insert->n > number)
-	    {
-	      node->next = insert;
-	      *head = node;
-	      break;
-	    }
-	  else if (insert->next->n > number)
-	    {
-	      node->next = insert->next;
-	      insert->next = node;
-	      break;
-	    }
-	  else
-	    insert = insert->next;
-	}
-      else
-	{
-	  node->next = NULL;
-	  insert->next = node;
-	  break;
-	}
-    }
-  return (node);
+  new = add_nodeint_end(head, number);
+  return (new);
 }
