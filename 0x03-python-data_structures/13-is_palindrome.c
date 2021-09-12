@@ -1,56 +1,42 @@
 include "lists.h"
+#include <stdlib.h>
+#include <stdio.h>
+#include <stddef.h>
 
 /**
- * reverse_list - reverses a linked list
- * @head: double pointer of the list
- * Return: pointer to the first node of the reversed list
+ * is_palindrome- Checks if a singly linked list is a palindrome.
+ * @head: Head pointer
+ * Return: 0 if it is not a palindrome, 1 if it is a palindrome.
  */
-
-listint_t *reverse_list(listint_t **head)
-{
-listint_t *forward = NULL, *prev = NULL;
-
-while (*head)
-{
-forward = (*head)->next;
-(*head)->next = prev;
-prev = (*head);
-(*head) = forward;
-
-}
-(*head) = prev;
-return (*head);
-}
-
-
-/**
- * is_palindrome - checks if a singly linked list is a palindrome
- * @head: double pointer to the head of the list
- * Return: 0 if it's not a palindrome, 1 if it is
- */
-
 int is_palindrome(listint_t **head)
 {
-listint_t *single = *head, *dub = *head;
+listint_t *node;
+int values[9999], i = 0, c = 0;
 
-if (*head == NULL)
+if ((!*head) || (!head))
+{
 return (1);
-while (dub->next && dub->next->next)
-{
-single = single->next;
-dub = dub->next->next;
 }
-single = reverse_list(&single);
-/*
-half = single;
-*/
-dub = *head;
-while (single && dub)
+node = *head;
+if (!node->next)
 {
-if (single->n != dub->n)
+return (1);
+}
+while (node)
+{
+values[i] = node->n;
+node = node->next;
+i++;
+}
+i--;
+while (i >= 0 && c <= i)
+{
+if (values[i] != values[c])
+{
 return (0);
-single = single->next;
-dub = dub->next;
+}
+i--;
+c++;
 }
 return (1);
 }
