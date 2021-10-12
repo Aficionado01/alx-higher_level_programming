@@ -9,14 +9,9 @@ Pull requests
 Actions
 Projects
 Wiki
-Security
+	Security
 Insights
-alx-higher_level_programming/0x0A-python-inheritance/tests/7-base_geometry.txt
-@Gemma-Mariae
-Gemma-Mariae added test files
- 1 contributor
-149 lines (99 sloc)  3.73 KB
-# 7-base_geometry.txt
+alx-higher_level_programming/0x0A-pyt# 7-base_geometry.txt
 
 =============================
 How to Use 7-base_geometry.py
@@ -165,4 +160,5 @@ type will be printed.
     >>> bg.integer_validator({"a": 1}, (1, 2))
     Traceback (most recent call last):
     TypeError: {'a': 1} must be an integer
+    
     
