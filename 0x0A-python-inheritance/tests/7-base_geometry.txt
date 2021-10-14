@@ -1,81 +1,59 @@
-========================
-7-base_geometry subclass
-========================
+using ``BaseGeometry``
+-----------------------
+first import:
 
-This sublass creates a public method that determines if the user is passing
-through and integer as they should
+        >>> bg = __import__('7-base_geometry').BaseGeometry
 
-Import the function:
-    >>> BaseGeometry = __import__('7-base_geometry').BaseGeometry
+        >>> a = bg()
 
-Checks to see if it's of type 'class'
-    >>> bg = BaseGeometry()
-    >>> type(bg)
-    <class '7-base_geometry.BaseGeometry'>
+now use it:
 
-Correct arguments:
-    >>> bg = BaseGeometry()
-    >>> bg.integer_validator("int", 5)
-
-Passing through a string instead of an integer:
-    >>> bg = BaseGeometry()
-    >>> bg.integer_validator("name", "John")
-    Traceback (most recent call last):
+        >>> a.integer_validator("test", -5)
+        Traceback (most recent call last):
         ...
-    TypeError: name must be an integer
+        ValueError: butt must be greater than 0
 
-If 0 is passed through:
-    >>> bg = BaseGeometry()
-    >>> bg.integer_validator("age", 0)
-    Traceback (most recent call last):
+        >>> a.integer_validator("name", "sam")
+        Traceback (most recent call last):
         ...
-    ValueError: age must be greater than 0
+        TypeError: butt must be an integer
 
-If a negative number is passed:
-    >>> bg = BaseGeometry()
-    >>> bg.integer_validator("distance", -4)
-    Traceback (most recent call last):
+        >>> a.integer_validator("test", 0)
+        Traceback (most recent call last):
         ...
-    ValueError: distance must be greater than 0
+        ValueError: butt must be greater than 0
 
-If no arguments are passed through:
-    >>> bg = BaseGeometry()
-    >>> bg.integer_validator()
-    Traceback (most recent call last):
+        >>> a.integer_validator()
+        Traceback (most recent call last):
         ...
-    TypeError: integer_validator() missing 2 required positional arguments: 'name' and 'value'
+        TypeError: integer_validator() missing 2 required positional arguments: 'name' and 'value'
 
-If only one argument is passed through:
-    >>> bg = BaseGeometry()
-    >>> bg.integer_validator("hi")
-    Traceback (most recent call last):
+        >>> a.integer_validator("test", {1, 1})
+        Traceback (most recent call last):
         ...
-    TypeError: integer_validator() missing 1 required positional argument: 'value'
+        TypeError: test must be an integer
 
-If three arguments are passed through:
-    >>> bg = BaseGeometry()
-    >>> bg.integer_validator("hi", 5, True)
-    Traceback (most recent call last):
-            ...
-    TypeError: integer_validator() takes 3 positional arguments but 4 were given
+        >>> a.integer_validator("test", (1,))
+        Traceback (most recent call last):
+        ...
+        TypeError: test must be an integer
 
-If a float is passed through:
-    >>> bg = BaseGeometry()
-    >>> bg.integer_validator("float", 2.2)
-    Traceback (most recent call last):
-            ...
-    TypeError: float must be an integer
+        >>> a.integer_validator("test", [1, 1])
+        Traceback (most recent call last):
+        ...
+        TypeError: test must be an integer
 
-If a bool is passed through:
-    >>> bg = BaseGeometry()
-    >>> bg.integer_validator("hello", True)
-    Traceback (most recent call last):
-    	          ...
-    TypeError: hello must be an integer
+        >>> a.integer_validator("test", None)
+        Traceback (most recent call last):
+        ...
+        TypeError: test must be an integer
 
-If a list is passed through:
-    >>> bg = BaseGeometry()
-    >>> bg.integer_validator("nope", [1, 2, 3])
-    Traceback (most recent call last):
-    	          ...
-    TypeError: nope must be an integer
+        >>> a.integer_validator("test")
+        Traceback (most recent call last):
+        ...
+        TypeError: integer_validator() missing 1 required positional argument: 'value'
+
+        >>> a.integer_validator("float", 3.5)
+        Traceback (most recent call last):
+        ...
+        TypeError: float must be an integer
