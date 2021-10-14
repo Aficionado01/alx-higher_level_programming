@@ -1,102 +1,28 @@
-Importing the function from the module:
-    >>> BaseGeometry = __import__("7-base_geometry").BaseGeometry
+#!/usr/bin/python3
+"""
+Module 7-base_geometry
+Contains BaseGeometry
+with public instance method area and integer_validation
+"""
 
-check: module docstring:
-    >>> m = __import__("7-base_geometry").__doc__
-    >>> len(m) > 1
-    True
 
-check: class docstring:
-    >>> c = __import__("7-base_geometry").BaseGeometry.__doc__
-    >>> len(c) > 1
-    True
+class BaseGeometry:
+    """
+    Methods:
+        area(self)
+        integer_validator(self, name, value)
+    """
+    def area(self):
+        """not implemented"""
+        raise Exception("area() is not implemented")
 
-check: method docstring:
-    >>> meth1 = __import__("7-base_geometry").BaseGeometry.area.__doc__
-    >>> len(meth1) > 1
-    True
-    >>> meth2 = __import__("7-base_geometry").BaseGeometry.integer_validator.__doc__
-    >>> len(meth2) > 1
-    True
-
-check: area failure:
-    >>> bg = BaseGeometry()
-    >>> bg.area()
-    Traceback (most recent call last):
-    ...
-    Exception: area() is not implemented
-
-Checking too many arguments for area:
-    >>> bg.area(1)
-    Traceback (most recent call last):
-    ...
-    TypeError: area() takes 1 positional argument but 2 were given
-
-Checking integer validator for passing integer:
-    >>> bg.integer_validator("integer", 10)
-
-check: integer == 0:
-    >>> bg.integer_validator("integer", 0)
-    Traceback (most recent call last):
-    ...
-    ValueError: integer must be greater than 0
-
-check: integer < 0;
-    >>> bg.integer_validator("integer", -15)
-    Traceback (most recent call last):
-    ...
-    ValueError: integer must be greater than 0
-
-check: non-integer types:
-    >>> bg.integer_validator("bool", True)
-    Traceback (most recent call last):
-    ...
-    TypeError: bool must be an integer
-    >>> bg.integer_validator("float", 1.9)
-    Traceback (most recent call last):
-    ...
-    TypeError: float must be an integer
-    >>> bg.integer_validator("complex", complex(1, 1))
-    Traceback (most recent call last):
-    ...
-    TypeError: complex must be an integer
-    >>> bg.integer_validator("string", "123")
-    Traceback (most recent call last):
-    ...
-    TypeError: string must be an integer
-    >>> bg.integer_validator("tuple", (1, 2, 3))
-    Traceback (most recent call last):
-    ...
-    TypeError: tuple must be an integer
-    >>> bg.integer_validator("list", [1, 2, 3])
-    Traceback (most recent call last):
-    ...
-    TypeError: list must be an integer
-    >>> bg.integer_validator("dict", {"name": "Hol"})
-    Traceback (most recent call last):
-    ...
-    TypeError: dict must be an integer
-    >>> bg.integer_validator("set", {"name", "Hol"})
-    Traceback (most recent call last):
-    ...
-    TypeError: set must be an integer
-    >>> bg.integer_validator("frozenset", frozenset(["hello", "friends"]))
-    Traceback (most recent call last):
-    ...
-    TypeError: frozenset must be an integer
-    >>> bg.integer_validator("bytes", b"bytes")
-    Traceback (most recent call last):
-    ...
-    TypeError: bytes must be an integer
-
-check: no arguments to integer_validator:
-    >>> bg.integer_validator()
-    Traceback (most recent call last):
-    ...
-    TypeError: integer_validator() missing 2 required positional arguments: 'name' and 'value'
-
-check: only 1 argument to integer_validator:
-    >>> bg.integer_validator("integer")
-    Traceback (most recent call last):
-    ...
-    TypeError: integer_validator() missing 1 required positional argument: 'value'
+    def integer_validator(self, name, value):
+        """validates input
+        Args:
+            name (str): assumed always a string
+            value (int): greater than 0
+        """
+        if type(value) is not int:
+            raise TypeError("{:s} must be an integer".format(name))
+        if value <= 0:
+            raise ValueError("{:s} must be greater than 0".format(name))
