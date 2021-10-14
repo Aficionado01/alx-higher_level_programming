@@ -23,4 +23,3 @@ class MyList(list):
         Returns: None
         """
         print(sorted(self))
-        
